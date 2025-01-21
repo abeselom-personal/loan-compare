@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./back-end
+    container_name: backend
+    working_dir: /app
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./back-end:/app
+    command: ["yarn", "start"]
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./front-end
+    container_name: frontend
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./front-end:/app
+    command: ["yarn", "start"]
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

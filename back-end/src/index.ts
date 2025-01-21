@@ -4,10 +4,10 @@ import http from 'http';
 
 import server from './server';
 
-const { PORT } = process.env;
+const { PORT, NODE_ENV } = process.env;
 
-http.createServer({
-}, server)
-  .listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
-  });
+const port = NODE_ENV === 'production' ? undefined : PORT;
+
+http.createServer(server).listen(port, () => {
+  console.log(`Server is listening on port ${port || 'default port'}`);
+});
